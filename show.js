@@ -13,24 +13,24 @@
     };
 
     function readMap(map, img) {
-        var position = {
+        var parent = img.parentNode;
+        parent.style.position = 'relative';
+
+        var start = {
             top: img.offsetTop,
             left: img.offsetLeft
         };
-
-        var parent = img.parentNode;
-        parent.style.position = 'relative';
 
         var areas = map.querySelectorAll('area');
         for (var i=0; i<areas.length; i++) {
             var coordinate = areas[i].coords;
 
-            drawDIV(parent, position, coordinate);
+            drawDIV(parent, start, coordinate);
         }
     }
 
     // TODO: shape
-    function drawDIV(parent, position, coordinate, shape) {
+    function drawDIV(parent, start, coordinate, shape) {
         var coords = coordinate.split(',');
 
         // 计算位置
@@ -38,8 +38,8 @@
         var y1 = Number(coords[1]);
         var x2 = Number(coords[2]);
         var y2 = Number(coords[3]);
-        var x = x1 + position.left;
-        var y = y1 + position.top;
+        var x = x1 + start.left;
+        var y = y1 + start.top;
         var height = Math.abs(y2 - y1);
         var width = Math.abs(x2 - x1);
         var borderWidth = 2;
